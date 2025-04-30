@@ -92,12 +92,10 @@ void interpretar(string linha) {
             return;
         }
 
-        // Executar comando git push
-        string out = capturarSaida("git push");
-
-        // Verificar se há erro de upstream não configurado
-        if (out.find("fatal: The current branch") != string::npos) {
-            cout << "⚠️ Tostadeira não tem o destino certo! Use: git push --set-upstream origin " << branchAtual << "\n";
+        string comando = "git push -u origin " + branchAtual;
+        string out = capturarSaida(comando);
+        if (out.find("fatal:") != string::npos) {
+            cout << "⚠️ Tostadeira com problemas:\n" << out;
         } else {
             exibirComTraducao(out, "push");
         }
@@ -162,6 +160,18 @@ void interpretar(string linha) {
         string out = capturarSaida(comando);
         exibirComTraducao(out, "branch");
     }
+    else if (cmd == "renomear") {
+        string novoNome;
+        getline(iss, novoNome);
+        if (novoNome.empty()) {
+            cout << "⚠️ Especifique o novo nome da branch.\n";
+            return;
+        }
+        string comando = "git branch -M " + novoNome.substr(1);
+        string out = capturarSaida(comando);
+        branchAtual = novoNome.substr(1);
+        cout << "📛 Branch renomeada para '" << branchAtual << "' com sucesso!\n";
+    }
     else if (cmd == "sair") {
         cout << "👋 Padaria fechando! Até a próxima fornada.\n";
         exit(0);
@@ -173,8 +183,8 @@ void interpretar(string linha) {
 
 int main() {
     string linha;
-    cout << "🥖 Bem-vindo ao GitPão v3.0 — CLI da padaria Git 🍞\n";
-    cout << "⚙️  Siga a ordem: massa → fatia → forno → tostadeira → padaria → push\n";
+    cout << "🥖 Bem-vindo ao GitPão v3.5 — CLI da padaria Git 🍞\n";
+    cout << "⚙️  Comandos temáticos: massa → fatia → forno → renomear → padaria → tostadeira\n";
     cout << "(digite 'sair' para sair)\n" << endl;
 
     while (true) {
