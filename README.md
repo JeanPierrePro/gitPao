@@ -9,20 +9,17 @@ GitPão é uma interface de linha de comando (CLI) inspirada no Git, mas com com
 Aqui estão os principais comandos que você pode usar no GitPão:
 
 ### Inicializar o repositório
+- **`GitPão`**: (Equivalente Git `Git`).
+- **`fatia`**: adciona os arqueivos  (equivalente ao `git add .`).
+- **`forno`**: Nomeia as alteracoes feita e adcionadas  (equivalente ao `git -u commit`).
+- **`renomear main`**: criar/renomezar branhs (equivalente ao `git branch -M main`).
+- **`padaria`**: conecat com sua repositorio no github (equivalente ao `git remote add origin`).
+- **`tostadeira`**: manda os seus arqeuvios da maquina para o repostirio (equivalente ao `git push -u origin`).
+- **`paozinho`**: verificar as branhs criadas localmente (equivalente ao `git bransh`).
+- **`mistura`**: fazer o merge dos trabalho (equivalente ao `git merge`).
+- **`padeiro`**: verrificar o estado dos arqeuvis  (equivalente ao `git status`).
+- **`mordida`**: puzar o seu trabalho do repositorio (equivalente ao `git pull`).
 - **`massa`**: Inicializa o repositório local (equivalente ao `git init`).
+
+
   
-  Exemplo:
-GitPão	Equivalente Git
-massa	git init
-fatia README	git add README.md
-forno "msg"	git commit -m "msg"
-renomear main	git branch -M main
-padaria <url>	git remote add origin <url>
-tostadeira	git push -u origin <branchAtual>
-paozinho	git branch
-mudar <nome>	git checkout <nome>
-criar <nome>	git checkout -b <nome>
-mistura <ramo>	git merge <ramo>
-padeiro	git status
-receita	git log --oneline
-mordida	git pull
