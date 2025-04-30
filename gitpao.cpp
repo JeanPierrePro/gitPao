@@ -9,6 +9,7 @@ using namespace std;
 bool massaFeita = false;
 bool arquivosAdicionados = false;
 bool commitFeito = false;
+string branchAtual = "master";  // Branch padrão
 
 string capturarSaida(string comandoGit) {
     string resultado;
@@ -75,12 +76,11 @@ void interpretar(string linha) {
             return;
         }
         string mensagem;
-        getline(iss, mensagem);  // Pega a mensagem de commit
+        getline(iss, mensagem);
         if (mensagem.empty()) {
             cout << "⚠️ Escreva uma mensagem para o commit.\n";
         } else {
-            // Remover o primeiro espaço extra, se existir, usando .substr(1)
-            string comando = "git commit -m \"" + mensagem.substr(1) + "\""; 
+            string comando = "git commit -m \"" + mensagem.substr(1) + "\"";
             string out = capturarSaida(comando);
             exibirComTraducao(out, "commit");
             commitFeito = true;
@@ -91,8 +91,16 @@ void interpretar(string linha) {
             cout << "⚠️ O pão ainda nem foi assado! Use 'forno' primeiro.\n";
             return;
         }
+
+        // Executar comando git push
         string out = capturarSaida("git push");
-        exibirComTraducao(out, "push");
+
+        // Verificar se há erro de upstream não configurado
+        if (out.find("fatal: The current branch") != string::npos) {
+            cout << "⚠️ Tostadeira não tem o destino certo! Use: git push --set-upstream origin " << branchAtual << "\n";
+        } else {
+            exibirComTraducao(out, "push");
+        }
     }
     else if (cmd == "mordida") {
         string out = capturarSaida("git pull");
@@ -130,6 +138,30 @@ void interpretar(string linha) {
             exibirComTraducao(out, "merge");
         }
     }
+    else if (cmd == "criar") {
+        string nomeBranch;
+        getline(iss, nomeBranch);
+        if (nomeBranch.empty()) {
+            cout << "⚠️ Especifique o nome da nova branch.\n";
+            return;
+        }
+        string comando = "git checkout -b " + nomeBranch.substr(1);
+        string out = capturarSaida(comando);
+        branchAtual = nomeBranch.substr(1);
+        exibirComTraducao(out, "branch");
+    }
+    else if (cmd == "mudar") {
+        string nomeBranch;
+        getline(iss, nomeBranch);
+        if (nomeBranch.empty()) {
+            cout << "⚠️ Especifique o nome da branch para mudar.\n";
+            return;
+        }
+        string comando = "git checkout " + nomeBranch.substr(1);
+        branchAtual = nomeBranch.substr(1);
+        string out = capturarSaida(comando);
+        exibirComTraducao(out, "branch");
+    }
     else if (cmd == "sair") {
         cout << "👋 Padaria fechando! Até a próxima fornada.\n";
         exit(0);
@@ -142,7 +174,7 @@ void interpretar(string linha) {
 int main() {
     string linha;
     cout << "🥖 Bem-vindo ao GitPão v3.0 — CLI da padaria Git 🍞\n";
-    cout << "⚙️  Siga a ordem: massa → fatia → forno → tostadeira\n";
+    cout << "⚙️  Siga a ordem: massa → fatia → forno → tostadeira → padaria → push\n";
     cout << "(digite 'sair' para sair)\n" << endl;
 
     while (true) {
