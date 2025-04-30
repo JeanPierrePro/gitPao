@@ -8,7 +8,6 @@ GitPão é uma interface de linha de comando (CLI) inspirada no Git, mas com com
 
 Aqui estão os principais comandos que você pode usar no GitPão:
 
-### Inicializar o repositório
 - **`GitPão`**: (Equivalente Git `Git`).
 - **`fatia`**: adciona os arqueivos  (equivalente ao `git add .`).
 - **`forno`**: Nomeia as alteracoes feita e adcionadas  (equivalente ao `git -u commit`).
@@ -21,5 +20,17 @@ Aqui estão os principais comandos que você pode usar no GitPão:
 - **`mordida`**: puzar o seu trabalho do repositorio (equivalente ao `git pull`).
 - **`massa`**: Inicializa o repositório local (equivalente ao `git init`).
 
+### Configuracoes adcioneis
+
+Para utilizar o GitPão, você pode precisar configurar a sua path ou instalar o executável no seu sistema.
+
+## Instalação e Configuração
+
+1. Baixe ou clone o repositório para o seu computador.
+2.Compile o código usando o compilador C++ de sua preferência (exemplo: g++ -o gitpao gitpao.cpp).
+3.Certifique-se de que o executável gerado esteja na sua path para que você possa rodá-lo de qualquer lugar no terminal.
+
+## Licença
+Este projeto é licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
   
